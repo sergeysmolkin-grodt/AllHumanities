@@ -1,7 +1,6 @@
 
 import { useRef, Suspense, useEffect, useState } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { Sphere, Stars, OrbitControls } from '@react-three/drei';
 import { Mesh } from 'three';
 
 const RotatingEarth = () => {
@@ -14,13 +13,10 @@ const RotatingEarth = () => {
   });
 
   return (
-    <Sphere ref={earthRef} args={[2, 32, 32]} position={[0, 0, 0]}>
-      <meshStandardMaterial
-        color="#4A90E2"
-        metalness={0.1}
-        roughness={0.8}
-      />
-    </Sphere>
+    <mesh ref={earthRef} position={[0, 0, 0]}>
+      <sphereGeometry args={[2, 32, 32]} />
+      <meshStandardMaterial color="#4A90E2" />
+    </mesh>
   );
 };
 
@@ -50,26 +46,10 @@ const Earth3D = () => {
         <Canvas
           camera={{ position: [0, 0, 8], fov: 45 }}
           className="w-full h-full"
-          dpr={[1, 2]}
-          performance={{ min: 0.5 }}
         >
-          <ambientLight intensity={0.2} />
-          <directionalLight position={[-5, 5, 5]} intensity={1} />
-          <pointLight position={[10, 10, 10]} intensity={0.5} />
-          <Stars
-            radius={300}
-            depth={60}
-            count={20000}
-            factor={7}
-            saturation={0}
-            fade={true}
-          />
+          <ambientLight intensity={0.3} />
+          <directionalLight position={[5, 5, 5]} intensity={1} />
           <RotatingEarth />
-          <OrbitControls
-            enableZoom={false}
-            enablePan={false}
-            autoRotate={false}
-          />
         </Canvas>
       </Suspense>
     </div>
