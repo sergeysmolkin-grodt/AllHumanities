@@ -18,50 +18,70 @@ const Earth3D = () => {
 
   return (
     <div className="w-full h-full flex items-center justify-center relative">
-      {/* Основная сфера Земли */}
+      {/* Основная анимированная сфера Земли */}
       <div className="relative w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96">
-        {/* Базовая сфера */}
+        {/* Анимированная Земля с GIF */}
         <div 
-          className="absolute inset-0 rounded-full bg-gradient-radial from-blue-400 via-blue-500 to-blue-800 shadow-2xl animate-spin"
+          className="absolute inset-0 rounded-full overflow-hidden shadow-2xl"
           style={{
-            background: 'radial-gradient(circle at 30% 30%, #60a5fa, #3b82f6, #1e40af, #1e3a8a)',
-            animation: 'spin 20s linear infinite',
-            boxShadow: '0 0 50px rgba(59, 130, 246, 0.3), inset -20px -20px 50px rgba(0, 0, 0, 0.3)'
+            backgroundImage: 'url("https://media.giphy.com/media/3o7btNhMBytxAM6YBa/giphy.gif")',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            boxShadow: '0 0 50px rgba(59, 130, 246, 0.4), inset -20px -20px 50px rgba(0, 0, 0, 0.3)'
           }}
         >
-          {/* Континенты как темные пятна */}
-          <div className="absolute top-1/4 left-1/3 w-8 h-12 bg-green-600 rounded-full opacity-70 transform rotate-12"></div>
-          <div className="absolute top-1/2 right-1/4 w-6 h-8 bg-green-700 rounded-full opacity-60 transform -rotate-45"></div>
-          <div className="absolute bottom-1/3 left-1/4 w-10 h-6 bg-yellow-700 rounded-full opacity-50 transform rotate-45"></div>
-          <div className="absolute top-1/3 right-1/3 w-4 h-10 bg-green-800 rounded-full opacity-60 transform rotate-90"></div>
+          {/* Дополнительный слой для глубины */}
+          <div 
+            className="absolute inset-0 rounded-full"
+            style={{
+              background: 'radial-gradient(circle at 30% 30%, transparent 0%, transparent 60%, rgba(0, 0, 0, 0.1) 80%, rgba(0, 0, 0, 0.3) 100%)'
+            }}
+          ></div>
         </div>
         
         {/* Атмосфера */}
         <div 
-          className="absolute inset-0 rounded-full"
+          className="absolute inset-0 rounded-full pointer-events-none"
           style={{
-            background: 'radial-gradient(circle, transparent 60%, rgba(135, 206, 235, 0.2) 80%, rgba(135, 206, 235, 0.4) 100%)',
-            transform: 'scale(1.1)'
+            background: 'radial-gradient(circle, transparent 50%, rgba(135, 206, 235, 0.15) 70%, rgba(135, 206, 235, 0.3) 85%, rgba(135, 206, 235, 0.5) 100%)',
+            transform: 'scale(1.1)',
+            animation: 'pulse 6s ease-in-out infinite'
           }}
         ></div>
         
-        {/* Блики */}
+        {/* Солнечные блики */}
         <div 
-          className="absolute top-6 left-6 w-16 h-16 bg-white rounded-full opacity-20 blur-sm"
+          className="absolute top-6 left-6 w-20 h-20 bg-white rounded-full opacity-10 blur-md pointer-events-none"
+          style={{
+            background: 'radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%)'
+          }}
+        ></div>
+        
+        {/* Дополнительный блик */}
+        <div 
+          className="absolute top-12 left-12 w-8 h-8 bg-white rounded-full opacity-20 blur-sm pointer-events-none"
         ></div>
       </div>
       
       {/* Орбитальные кольца */}
       <div 
-        className="absolute inset-0 border border-white/10 rounded-full animate-pulse"
+        className="absolute inset-0 border border-white/10 rounded-full animate-pulse pointer-events-none"
         style={{
           animation: 'pulse 4s ease-in-out infinite'
         }}
       ></div>
       <div 
-        className="absolute inset-4 border border-blue-300/20 rounded-full"
+        className="absolute inset-4 border border-blue-300/20 rounded-full pointer-events-none"
         style={{
           animation: 'spin 30s linear infinite reverse'
+        }}
+      ></div>
+      
+      {/* Дополнительное внешнее кольцо */}
+      <div 
+        className="absolute -inset-4 border border-cyan-400/10 rounded-full pointer-events-none"
+        style={{
+          animation: 'spin 45s linear infinite'
         }}
       ></div>
     </div>
