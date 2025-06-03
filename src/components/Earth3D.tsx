@@ -19,8 +19,6 @@ const RotatingEarth = () => {
         color="#4A90E2"
         metalness={0.1}
         roughness={0.8}
-        transparent
-        opacity={0.9}
       />
     </Sphere>
   );
@@ -33,14 +31,10 @@ const Earth3D = () => {
         <Canvas
           camera={{ position: [0, 0, 8], fov: 45 }}
           className="w-full h-full"
-          gl={{ antialias: true, alpha: true }}
-          onCreated={({ gl }) => {
-            gl.setClearColor('#000000', 0);
-          }}
         >
           <ambientLight intensity={0.2} />
-          <directionalLight position={[-5, 5, 5]} intensity={1} color="#ffffff" />
-          <pointLight position={[10, 10, 10]} intensity={0.5} color="#87CEEB" />
+          <directionalLight position={[-5, 5, 5]} intensity={1} />
+          <pointLight position={[10, 10, 10]} intensity={0.5} />
           <Stars
             radius={300}
             depth={60}
