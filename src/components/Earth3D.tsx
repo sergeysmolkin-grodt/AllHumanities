@@ -20,16 +20,27 @@ const Earth3D = () => {
     <div className="w-full h-full flex items-center justify-center relative">
       {/* Основная анимированная сфера Земли */}
       <div className="relative w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96">
-        {/* Анимированная Земля с GIF */}
+        {/* Анимированная Земля с видео */}
         <div 
           className="absolute inset-0 rounded-full overflow-hidden shadow-2xl"
           style={{
-            backgroundImage: 'url("https://media.giphy.com/media/3o7btNhMBytxAM6YBa/giphy.gif")',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
             boxShadow: '0 0 50px rgba(59, 130, 246, 0.4), inset -20px -20px 50px rgba(0, 0, 0, 0.3)'
           }}
         >
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover"
+            style={{
+              transform: 'scale(1.1)',
+              borderRadius: '50%'
+            }}
+          >
+            <source src="https://videos.pexels.com/video-files/1851190/1851190-uhd_2560_1440_25fps.mp4" type="video/mp4" />
+          </video>
+          
           {/* Дополнительный слой для глубины */}
           <div 
             className="absolute inset-0 rounded-full"
