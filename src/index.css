@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -98,4 +99,18 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* Дополнительные анимации для Земли */
+@keyframes earthRotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-earth-rotate {
+  animation: earthRotate 20s linear infinite;
 }
