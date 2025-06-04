@@ -43,27 +43,23 @@ const Navigation = () => {
 
   const isActive = (path: string) => location.pathname === path;
 
-  const handleAddToCart = () => {
-    setIsCartOpen(true);
-  };
-
   return (
     <>
       <nav className="bg-black/90 backdrop-blur-sm border-b border-white/10 relative z-30">
-        <div className="container mx-auto px-6">
+        <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
-            <Link to="/" className="text-white text-xl font-light tracking-[0.2em] hover:tracking-[0.3em] transition-all duration-300 flex-shrink-0">
+            <Link to="/" className="text-white text-lg font-light tracking-[0.2em] hover:tracking-[0.3em] transition-all duration-300 flex-shrink-0 min-w-fit">
               ALLHUMANITY
             </Link>
 
             {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center space-x-1 flex-1 justify-center">
+            <div className="hidden xl:flex items-center space-x-1 flex-1 justify-center mx-4">
               {navItems.map(({ path, label, icon: Icon }) => (
                 <Link
                   key={path}
                   to={path}
-                  className={`flex items-center space-x-2 px-3 py-2 rounded-lg transition-all duration-200 text-sm ${
+                  className={`flex items-center space-x-1 px-2 py-2 rounded-lg transition-all duration-200 text-sm whitespace-nowrap ${
                     isActive(path)
                       ? 'bg-white/10 text-white'
                       : 'text-white/70 hover:text-white hover:bg-white/5'
@@ -79,7 +75,7 @@ const Navigation = () => {
                 <DropdownMenuTrigger asChild>
                   <Button 
                     variant="ghost" 
-                    className="flex items-center space-x-2 px-3 py-2 text-sm text-white/70 hover:text-white hover:bg-white/5"
+                    className="flex items-center space-x-1 px-2 py-2 text-sm text-white/70 hover:text-white hover:bg-white/5 h-auto"
                   >
                     <Store size={14} />
                     <span>Магазин</span>
@@ -87,7 +83,7 @@ const Navigation = () => {
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent 
-                  className="bg-black/90 border-white/20 backdrop-blur-sm"
+                  className="bg-black/90 border-white/20 backdrop-blur-sm z-50"
                   align="center"
                 >
                   <DropdownMenuItem asChild>
@@ -113,13 +109,13 @@ const Navigation = () => {
             </div>
 
             {/* Right side controls */}
-            <div className="hidden lg:flex items-center space-x-3 flex-shrink-0">
+            <div className="hidden lg:flex items-center space-x-2 flex-shrink-0">
               <LanguageSwitcher />
               
               <Button 
                 variant="outline" 
                 size="sm"
-                className="border-white/20 text-white hover:bg-white/10 flex items-center space-x-2"
+                className="border-white/20 text-white hover:bg-white/10 flex items-center space-x-1 px-3 py-1"
                 onClick={() => setIsCartOpen(true)}
               >
                 <ShoppingCart size={14} />
@@ -127,7 +123,7 @@ const Navigation = () => {
               </Button>
               
               <Link to="/auth">
-                <Button variant="outline" size="sm" className="border-white/20 text-white hover:bg-white/10">
+                <Button variant="outline" size="sm" className="border-white/20 text-white hover:bg-white/10 px-3 py-1">
                   Вход
                 </Button>
               </Link>
@@ -136,7 +132,7 @@ const Navigation = () => {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="lg:hidden p-2 text-white hover:bg-white/10 rounded-lg transition-colors"
+              className="xl:hidden p-2 text-white hover:bg-white/10 rounded-lg transition-colors ml-2"
             >
               {isOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -144,7 +140,7 @@ const Navigation = () => {
 
           {/* Mobile Navigation */}
           {isOpen && (
-            <div className="lg:hidden py-4 border-t border-white/10">
+            <div className="xl:hidden py-4 border-t border-white/10">
               <div className="flex flex-col space-y-2">
                 {navItems.map(({ path, label, icon: Icon }) => (
                   <Link
@@ -176,7 +172,7 @@ const Navigation = () => {
                     setIsCartOpen(true);
                     setIsOpen(false);
                   }}
-                  className="flex items-center space-x-3 px-4 py-3 text-white/70 hover:text-white hover:bg-white/5"
+                  className="flex items-center space-x-3 px-4 py-3 text-white/70 hover:text-white hover:bg-white/5 text-left"
                 >
                   <ShoppingCart size={18} />
                   <span>Корзина</span>
