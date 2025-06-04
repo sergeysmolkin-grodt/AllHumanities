@@ -2,6 +2,12 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import { 
   Users, 
   BookOpen, 
@@ -12,17 +18,22 @@ import {
   Calendar, 
   User,
   Menu,
-  X
+  X,
+  ShoppingCart,
+  ChevronDown,
+  Shirt
 } from 'lucide-react';
+import LanguageSwitcher from './LanguageSwitcher';
+import CartSlider from './CartSlider';
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isCartOpen, setIsCartOpen] = useState(false);
   const location = useLocation();
 
   const navItems = [
     { path: '/authors', label: 'Авторы', icon: Users },
     { path: '/materials', label: 'Материалы', icon: BookOpen },
-    { path: '/shop', label: 'Магазин', icon: Store },
     { path: '/community', label: 'Комьюнити', icon: MessageSquare },
     { path: '/posts', label: 'Статьи', icon: FileText },
     { path: '/strategies', label: 'Стратегии', icon: Target },
@@ -32,83 +43,166 @@ const Navigation = () => {
 
   const isActive = (path: string) => location.pathname === path;
 
+  const handleAddToCart = () => {
+    setIsCartOpen(true);
+  };
+
   return (
-    <nav className="bg-black/90 backdrop-blur-sm border-b border-white/10">
-      <div className="container mx-auto px-6">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <Link to="/" className="text-white text-xl font-light tracking-[0.2em] hover:tracking-[0.3em] transition-all duration-300">
-            ALLHUMANITY
-          </Link>
-
-          {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center space-x-1">
-            {navItems.map(({ path, label, icon: Icon }) => (
-              <Link
-                key={path}
-                to={path}
-                className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-all duration-200 ${
-                  isActive(path)
-                    ? 'bg-white/10 text-white'
-                    : 'text-white/70 hover:text-white hover:bg-white/5'
-                }`}
-              >
-                <Icon size={16} />
-                <span className="text-sm">{label}</span>
-              </Link>
-            ))}
-          </div>
-
-          {/* Auth Button */}
-          <div className="hidden lg:flex items-center space-x-4">
-            <Link to="/auth">
-              <Button variant="outline" className="border-white/20 text-white hover:bg-white/10">
-                Вход
-              </Button>
+    <>
+      <nav className="bg-black/90 backdrop-blur-sm border-b border-white/10 relative z-30">
+        <div className="container mx-auto px-6">
+          <div className="flex items-center justify-between h-16">
+            {/* Logo */}
+            <Link to="/" className="text-white text-xl font-light tracking-[0.2em] hover:tracking-[0.3em] transition-all duration-300 flex-shrink-0">
+              ALLHUMANITY
             </Link>
-          </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="lg:hidden p-2 text-white hover:bg-white/10 rounded-lg transition-colors"
-          >
-            {isOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
-        </div>
-
-        {/* Mobile Navigation */}
-        {isOpen && (
-          <div className="lg:hidden py-4 border-t border-white/10">
-            <div className="flex flex-col space-y-2">
+            {/* Desktop Navigation */}
+            <div className="hidden lg:flex items-center space-x-1 flex-1 justify-center">
               {navItems.map(({ path, label, icon: Icon }) => (
                 <Link
                   key={path}
                   to={path}
-                  onClick={() => setIsOpen(false)}
-                  className={`flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200 ${
+                  className={`flex items-center space-x-2 px-3 py-2 rounded-lg transition-all duration-200 text-sm ${
                     isActive(path)
                       ? 'bg-white/10 text-white'
                       : 'text-white/70 hover:text-white hover:bg-white/5'
                   }`}
                 >
-                  <Icon size={18} />
+                  <Icon size={14} />
                   <span>{label}</span>
                 </Link>
               ))}
-              <Link
-                to="/auth"
-                onClick={() => setIsOpen(false)}
-                className="flex items-center space-x-3 px-4 py-3 mt-4 border-t border-white/10 text-white/70 hover:text-white"
+              
+              {/* Shop Dropdown */}
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button 
+                    variant="ghost" 
+                    className="flex items-center space-x-2 px-3 py-2 text-sm text-white/70 hover:text-white hover:bg-white/5"
+                  >
+                    <Store size={14} />
+                    <span>Магазин</span>
+                    <ChevronDown size={12} />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent 
+                  className="bg-black/90 border-white/20 backdrop-blur-sm"
+                  align="center"
+                >
+                  <DropdownMenuItem asChild>
+                    <Link 
+                      to="/shop?category=merch" 
+                      className="text-white hover:bg-white/10 cursor-pointer flex items-center space-x-2"
+                    >
+                      <Shirt size={14} />
+                      <span>Мерч</span>
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link 
+                      to="/shop?category=books" 
+                      className="text-white hover:bg-white/10 cursor-pointer flex items-center space-x-2"
+                    >
+                      <BookOpen size={14} />
+                      <span>Книги</span>
+                    </Link>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
+
+            {/* Right side controls */}
+            <div className="hidden lg:flex items-center space-x-3 flex-shrink-0">
+              <LanguageSwitcher />
+              
+              <Button 
+                variant="outline" 
+                size="sm"
+                className="border-white/20 text-white hover:bg-white/10 flex items-center space-x-2"
+                onClick={() => setIsCartOpen(true)}
               >
-                <User size={18} />
-                <span>Вход</span>
+                <ShoppingCart size={14} />
+                <span className="hidden sm:inline">Корзина</span>
+              </Button>
+              
+              <Link to="/auth">
+                <Button variant="outline" size="sm" className="border-white/20 text-white hover:bg-white/10">
+                  Вход
+                </Button>
               </Link>
             </div>
+
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="lg:hidden p-2 text-white hover:bg-white/10 rounded-lg transition-colors"
+            >
+              {isOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
           </div>
-        )}
-      </div>
-    </nav>
+
+          {/* Mobile Navigation */}
+          {isOpen && (
+            <div className="lg:hidden py-4 border-t border-white/10">
+              <div className="flex flex-col space-y-2">
+                {navItems.map(({ path, label, icon: Icon }) => (
+                  <Link
+                    key={path}
+                    to={path}
+                    onClick={() => setIsOpen(false)}
+                    className={`flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200 ${
+                      isActive(path)
+                        ? 'bg-white/10 text-white'
+                        : 'text-white/70 hover:text-white hover:bg-white/5'
+                    }`}
+                  >
+                    <Icon size={18} />
+                    <span>{label}</span>
+                  </Link>
+                ))}
+                
+                <Link
+                  to="/shop"
+                  onClick={() => setIsOpen(false)}
+                  className="flex items-center space-x-3 px-4 py-3 text-white/70 hover:text-white hover:bg-white/5"
+                >
+                  <Store size={18} />
+                  <span>Магазин</span>
+                </Link>
+                
+                <button
+                  onClick={() => {
+                    setIsCartOpen(true);
+                    setIsOpen(false);
+                  }}
+                  className="flex items-center space-x-3 px-4 py-3 text-white/70 hover:text-white hover:bg-white/5"
+                >
+                  <ShoppingCart size={18} />
+                  <span>Корзина</span>
+                </button>
+                
+                <Link
+                  to="/auth"
+                  onClick={() => setIsOpen(false)}
+                  className="flex items-center space-x-3 px-4 py-3 mt-4 border-t border-white/10 text-white/70 hover:text-white"
+                >
+                  <User size={18} />
+                  <span>Вход</span>
+                </Link>
+                
+                <div className="px-4 py-3 border-t border-white/10">
+                  <LanguageSwitcher />
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      </nav>
+
+      {/* Cart Slider */}
+      <CartSlider isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
+    </>
   );
 };
 

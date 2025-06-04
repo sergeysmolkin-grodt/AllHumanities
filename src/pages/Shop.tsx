@@ -1,13 +1,16 @@
 
+import { useState } from 'react';
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { ShoppingCart, Shirt, BookOpen } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { useToast } from '@/hooks/use-toast';
 
 const Shop = () => {
+  const { toast } = useToast();
+  
   const products = [
     {
       id: 1,
@@ -29,27 +32,25 @@ const Shop = () => {
     }
   ];
 
+  const handleAddToCart = (product: typeof products[0]) => {
+    toast({
+      title: "Товар добавлен в корзину",
+      description: `${product.name} добавлен в корзину`,
+    });
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-900 via-purple-900 to-black">
       <Navigation />
       
       <div className="container mx-auto px-6 py-12">
-        <div className="flex justify-between items-center mb-12">
-          <div>
-            <h1 className="text-4xl md:text-5xl font-light text-white mb-6 tracking-wide">
-              Магазин
-            </h1>
-            <p className="text-white/70 text-lg">
-              Мерч и книги проекта ALLHUMANITY
-            </p>
-          </div>
-          
-          <Link to="/cart">
-            <Button variant="outline" className="border-white/20 text-white hover:bg-white/10">
-              <ShoppingCart size={16} className="mr-2" />
-              Корзина
-            </Button>
-          </Link>
+        <div className="mb-12">
+          <h1 className="text-4xl md:text-5xl font-light text-white mb-6 tracking-wide">
+            Магазин
+          </h1>
+          <p className="text-white/70 text-lg">
+            Мерч и книги проекта ALLHUMANITY
+          </p>
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -77,7 +78,10 @@ const Shop = () => {
                   {product.description}
                 </p>
                 
-                <Button className="w-full bg-green-600 hover:bg-green-700 text-white">
+                <Button 
+                  className="w-full bg-green-600 hover:bg-green-700 text-white"
+                  onClick={() => handleAddToCart(product)}
+                >
                   <ShoppingCart size={16} className="mr-2" />
                   Добавить в корзину
                 </Button>
