@@ -4,16 +4,17 @@ import React from 'react';
 const Earth3D = () => {
   return (
     <div className="absolute inset-0 flex items-center justify-center overflow-hidden">
-      {/* Увеличенное видео Земли */}
+      {/* Видео Земли с правильными пропорциями */}
       <video
         autoPlay
         loop
         muted
         playsInline
-        className="w-[120vw] h-[120vh] object-cover opacity-40"
+        className="min-w-full min-h-full object-cover opacity-60"
         style={{
-          filter: 'brightness(0.7) contrast(1.2)',
-          transform: 'scale(1.5)'
+          filter: 'brightness(0.8) contrast(1.3)',
+          width: '100%',
+          height: '100%'
         }}
       >
         <source 
