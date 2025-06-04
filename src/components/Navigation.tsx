@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -45,7 +44,7 @@ const Navigation = () => {
 
   return (
     <>
-      <nav className="bg-black/90 backdrop-blur-sm border-b border-white/10 relative z-30">
+      <nav className="bg-black/90 backdrop-blur-sm border-b border-white/10 relative z-50">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
@@ -114,17 +113,17 @@ const Navigation = () => {
               
               <Button 
                 variant="outline" 
-                size="sm"
-                className="border-white/20 text-white hover:bg-white/10 flex items-center space-x-1 px-3 py-1"
+                size="icon"
+                className="border-white/20 text-white hover:bg-white/10 h-9 w-9"
                 onClick={() => setIsCartOpen(true)}
+                title="Корзина"
               >
-                <ShoppingCart size={14} />
-                <span className="hidden sm:inline">Корзина</span>
+                <ShoppingCart size={16} />
               </Button>
               
-              <Link to="/auth">
-                <Button variant="outline" size="sm" className="border-white/20 text-white hover:bg-white/10 px-3 py-1">
-                  Вход
+              <Link to="/auth" title="Вход">
+                <Button variant="outline" size="icon" className="border-white/20 text-white hover:bg-white/10 h-9 w-9">
+                  <User size={16} />
                 </Button>
               </Link>
             </div>

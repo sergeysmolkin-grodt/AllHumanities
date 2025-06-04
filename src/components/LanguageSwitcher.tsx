@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import {
@@ -7,7 +6,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { Globe, ChevronDown } from 'lucide-react';
+import { Globe } from 'lucide-react';
 
 const LanguageSwitcher = () => {
   const [currentLanguage, setCurrentLanguage] = useState('RU');
@@ -34,12 +33,10 @@ const LanguageSwitcher = () => {
       <DropdownMenuTrigger asChild>
         <Button 
           variant="outline" 
-          className="border-white/20 text-white hover:bg-white/10 flex items-center space-x-2"
+          size="icon"
+          className="border-white/20 text-white hover:bg-white/10 h-9 w-9"
         >
           <Globe size={16} />
-          <span>{getCurrentLanguage().flag}</span>
-          <span className="hidden sm:inline">{currentLanguage}</span>
-          <ChevronDown size={14} />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent 
