@@ -1,13 +1,12 @@
-
 import Earth3D from './Earth3D';
 
 const HeroSection = () => {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-blue-900 to-black">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-500/10 via-transparent to-transparent"></div>
-      </div>
+      {/* Background Removed */}
+      {/* <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-blue-900 to-black"> */}
+      {/*   <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-500/10 via-transparent to-transparent"></div> */}
+      {/* </div> */}
       
       {/* Animated stars background */}
       <div className="absolute inset-0">
@@ -25,10 +24,10 @@ const HeroSection = () => {
         ))}
       </div>
 
-      {/* Earth 3D Model */}
-      <div className="absolute right-10 md:right-20 top-1/2 transform -translate-y-1/2 w-80 h-80 md:w-96 md:h-96 lg:w-[500px] lg:h-[500px]">
-        <Earth3D />
-      </div>
+      {/* Earth 3D Model Removed From Here */}
+      {/* <div className="absolute right-10 md:right-20 top-1/2 transform -translate-y-1/2 w-96 h-96 md:w-[450px] md:h-[450px] lg:w-[600px] lg:h-[600px]"> */}
+      {/*   <Earth3D /> */}
+      {/* </div> */}
 
       {/* Content */}
       <div className="relative z-10 container mx-auto px-6">
